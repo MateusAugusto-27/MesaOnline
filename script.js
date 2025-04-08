@@ -1,20 +1,16 @@
-const formCadastro = document.getElementById('form-cadastro');
-
-formCadastro.addEventListener('submit', (e) => {
+document.getElementById("form-login").addEventListener("submit", function (e) {
     e.preventDefault();
-
-    const nome = document.getElementById('nome').value;
-    const email = document.getElementById('email').value;
-    const senha = document.getElementById('senha').value;
-    const confirmarSenha = document.getElementById('confirmar-senha').value;
-
-    if (senha !== confirmarSenha) {
-        alert('Senhas não conferem!');
-        return;
+  
+    const email = document.getElementById("email").value;
+    const senha = document.getElementById("senha").value;
+  
+    const user = JSON.parse(localStorage.getItem(email));
+  
+    if (user && user.senha === senha) {
+      alert("Login realizado com sucesso!");
+      localStorage.setItem("logado", email);
+      window.location.href = "reservas.html";
+    } else {
+      alert("Usuário ou senha inválidos.");
     }
-
-    console.log('Cadastro realizado com sucesso!');
-    console.log('Nome:', nome);
-    console.log('Email:', email);
-    console.log('Senha:', senha);
-});
+  });
