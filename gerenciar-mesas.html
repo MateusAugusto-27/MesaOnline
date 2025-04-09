@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Gerenciar Mesas</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f9f9f9;
+      margin: 0;
+      padding: 2rem;
+    }
+
+    h2 {
+      margin-bottom: 0.5rem;
+    }
+
+    #restaurante-nome {
+      color: #e60000;
+    }
+
+    #logout-btn {
+      background-color: #222;
+      color: white;
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-bottom: 1rem;
+    }
+
+    #mesas-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1rem;
+    }
+
+    .mesa {
+      padding: 1rem;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+      background-color: white;
+    }
+
+    .status-disponível {
+      border-left: 6px solid #28a745;
+    }
+
+    .status-reservada {
+      border-left: 6px solid #ffc107;
+    }
+
+    .status-ocupada {
+      border-left: 6px solid #dc3545;
+    }
+
+    .mesa h3 {
+      margin-top: 0;
+    }
+
+    .btn {
+      margin-right: 0.3rem;
+      padding: 0.3rem 0.6rem;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .btn:hover {
+      opacity: 0.9;
+    }
+
+    .btn.disponível {
+      background-color: #28a745;
+      color: white;
+    }
+
+    .btn.reservada {
+      background-color: #ffc107;
+    }
+
+    .btn.ocupada {
+      background-color: #dc3545;
+      color: white;
+    }
+
+    .tempo {
+      font-size: 0.9rem;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+  <main class="container">
+    <h2>Painel de Gerenciamento</h2>
+    <p>Restaurante: <strong id="restaurante-nome"></strong></p>
+    <button id="logout-btn">Sair</button>
+
+    <div id="mesas-container">
+      <!-- Mesas aparecerão aqui -->
+    </div>
+  </main>
+
+  <script>
+    const restaurante = JSON.parse(localStorage.getItem("sessao_restaurante"));
+    if (!restaurante) {
+      window.location.href = "login-funcionario.html";
+    }
+
+    document.getElementById("restaurante-nome").textContent = restaurante.nome;
+    const mesasContainer = document.getElementById("mesas-container");
+    const restauranteId = restaurante.id;
+
+    let dadosMesas = JSON.parse(localStorage.getItem("mesas_" + restauranteId)) || gerarMesasIniciais();
+
+    function gerarMesasIniciais() {
+      const mesas = [];
+      for (let i = 1; i <= 5; i++) {
+        mesas.push({ id: i, status: "disponível", tempoInicio: null });
+      }
+      localStorage.setItem("mesas_" + restauranteId, JSON.stringify(mesas));
+      return mesas;
+    }
+
+    function salvarMesas() {
+      localStorage.setItem("mesas_" + restauranteId, JSON.stringify(dadosMesas));
+    }
+
+    function atualizarInterface() {
+      mesasContainer.innerHTML = "";
+      dadosMesas.forEach((mesa) => {
+        const div = document.createElement("div");
+        div.className = `mesa status-${mesa.status}`;
+
+        const tempoPassado = mesa.status === "ocupada" && mesa.tempoInicio
+          ? calcularTempo(mesa.tempoInicio)
+          : "";
+
+        div.innerHTML = `
+          <h3>Mesa ${mesa.id}</h3>
+          <p>Status: <span class="status">${mesa.status}</span></p>
+          <p class="tempo" id="tempo-${mesa.id}">
+            ${tempoPassado ? "Tempo: " + tempoPassado : ""}
+          </p>
+          <button class="btn disponível" onclick="mudarStatus(${mesa.id}, 'disponível')">Disponível</button>
+          <button class="btn reservada" onclick="mudarStatus(${mesa.id}, 'reservada')">Reservada</button>
+          <button class="btn ocupada" onclick="mudarStatus(${mesa.id}, 'ocupada')">Ocupada</button>
+        `;
+        mesasContainer.appendChild(div);
+      });
+    }
+
+    function mudarStatus(id, novoStatus) {
+      const mesa = dadosMesas.find(m => m.id === id);
+      mesa.status = novoStatus;
+      mesa.tempoInicio = novoStatus === "ocupada" ? Date.now() : null;
+      salvarMesas();
+      atualizarInterface();
+    }
+
+    function calcularTempo(inicio) {
+      const agora = Date.now();
+      const diff = agora - inicio;
+      const minutos = Math.floor(diff / 60000);
+      const segundos = Math.floor((diff % 60000) / 1000);
+      return `${minutos}m ${segundos}s`;
+    }
+
+    function atualizarTempos() {
+      dadosMesas.forEach((mesa) => {
+        if (mesa.status === "ocupada" && mesa.tempoInicio) {
+          const tempoEl = document.getElementById(`tempo-${mesa.id}`);
+          if (tempoEl) {
+            tempoEl.textContent = "Tempo: " + calcularTempo(mesa.tempoInicio);
+          }
+        }
+      });
+    }
+
+    atualizarInterface();
+    setInterval(atualizarTempos, 1000); // atualiza a cada segundo
+
+    document.getElementById("logout-btn").addEventListener("click", () => {
+      localStorage.removeItem("sessao_restaurante");
+      window.location.href = "login-funcionario.html";
+    });
+  </script>
+</body>
+</html>
