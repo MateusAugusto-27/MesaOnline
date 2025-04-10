@@ -1,41 +1,34 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Login - MesaOnline</title>
+  <title>Primeira Mesa | MesaOnline</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <main>
-    <hr class="barra-decorativa"/>
+    <hr class="barra-decorativa" />
 
-    <h2>ENTRAR</h2>
+    <h2>PRIMEIRA MESA</h2>
 
     <div class="espaco-imagem">
-      <!-- <img src="logo.png" alt="Logo MesaOnline"> -->
+      <!-- Você pode inserir o logo aqui futuramente -->
+      <!-- <img src="logo.png" alt="Logo MesaOnline" /> -->
     </div>
 
-    <hr class="barra-decorativa"/>
+    <hr class="barra-decorativa" />
 
-    <form id="form-login">
-      <label for="email">USUÁRIO / EMAIL</label>
-      <input type="email" id="email" placeholder="Digite aqui." required/>
+    <div class="botoes">
+      <a href="login.html">
+        <button class="botao-escolha">SOU CLIENTE</button>
+      </a>
+      <a href="login-funcionario.html">
+        <button class="botao-escolha">SOU FUNCIONÁRIO</button>
+      </a>
+    </div>
 
-      <label for="senha">SENHA / CÓDIGO</label>
-      <input type="password" id="senha" placeholder="Digite aqui." required/>
-
-      <hr class="barra-decorativa"/>
-
-      <div class="botoes">
-        <button type="submit">ENTRAR</button>
-        <a href="cadastro.html"><button type="button">REGISTRAR</button></a>
-      </div>
-    </form>
-
-    <hr class="barra-decorativa"/>
+    <hr class="barra-decorativa" />
   </main>
-
-  <script src="script.js"></script>
 </body>
 </html>
