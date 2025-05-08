@@ -1,18 +1,22 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { MesaModule } from './mesa/mesa.module';
-import { Mesa } from './mesa/entities/mesa.entity';
 
 @Module({
   imports: [
     TypeOrmModule.forRoot({
-      type: 'sqlite',
-      database: 'banco.sqlite',
-      entities: [Mesa],
+      type: 'postgres',
+      host: 'localhost',
+      port: 5432,
+      username: 'postgres',
+      password: 'admin123',
+      database: 'mesaonline',
+      entities: [__dirname + '/**/*.entity{.ts,.js}'],
       synchronize: true,
     }),
     MesaModule,
   ],
 })
 export class AppModule {}
+
 

@@ -1,0 +1,13 @@
+{
+    "extends": "./tsconfig.json", // Estende o tsconfig.json para herdar as configurações.
+    "compilerOptions": {
+      "outDir": "./dist",               // Diretório onde o código transpilado será gerado.
+      "noEmit": false,                  // Permite que o TypeScript gere arquivos JS.
+      "isolatedModules": true,          // Garantir que cada arquivo seja tratado como módulo isolado.
+      "allowJs": true                   // Permite arquivos JS no projeto.
+    },
+    "include": [
+      "src/**/*"                         // Inclui todos os arquivos TypeScript na pasta src.
+    ]
+  }
+  

@@ -1,6 +1,5 @@
 export class CreateMesaDto {
-    numero: number;
-    status: 'disponivel' | 'ocupada';
-    capacidade: number;
-  }
-  
+  numero: number;
+  capacidade: number;
+}
+

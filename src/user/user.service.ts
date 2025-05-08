@@ -1,9 +1,9 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { User } from './entities/user.entity';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { User } from './entities/user.entity';
 
 @Injectable()
 export class UserService {
@@ -12,37 +12,30 @@ export class UserService {
     private readonly userRepository: Repository<User>,
   ) {}
 
-  async create(createUserDto: CreateUserDto): Promise<User> {
+  create(createUserDto: CreateUserDto): Promise<User> {
     const user = this.userRepository.create(createUserDto);
     return this.userRepository.save(user);
   }
 
-  async findAll(): Promise<User[]> {
+  findAll(): Promise<User[]> {
     return this.userRepository.find();
   }
 
-  async findOne(id: number): Promise<User> {
-    const user = await this.userRepository.findOneBy({ id });
-    if (!user) {
-      throw new NotFoundException(`Usuário com id ${id} não encontrado`);
-    }
-    return user;
+  findOne(id: number): Promise<User> {
+    return this.userRepository.findOneBy({ id }).then((user) => {
+      if (!user) throw new Error('Usuário não encontrado');
+      return user;
+    });
   }
 
   async update(id: number, updateUserDto: UpdateUserDto): Promise<User> {
-    await this.userRepository.update(id, updateUserDto);
-    const updatedUser = await this.userRepository.findOneBy({ id });
-    if (!updatedUser) {
-      throw new NotFoundException(`Usuário com id ${id} não encontrado`);
-    }
-    return updatedUser;
+    const user = await this.findOne(id);
+    const updated = Object.assign(user, updateUserDto);
+    return this.userRepository.save(updated);
   }
 
   async remove(id: number): Promise<void> {
-    const result = await this.userRepository.delete(id);
-    if (result.affected === 0) {
-      throw new NotFoundException(`Usuário com id ${id} não encontrado`);
-    }
+    const user = await this.findOne(id);
+    await this.userRepository.remove(user);
   }
 }
-

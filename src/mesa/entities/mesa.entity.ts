@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn /*, OneToMany */ } from 'typeorm';
+// import { Reserva } from '../../reserva/entities/reserva.entity';
 
 @Entity()
 export class Mesa {
@@ -9,14 +10,10 @@ export class Mesa {
   numero: number;
 
   @Column()
-  status: 'disponivel' | 'ocupada';
-
-  @Column()
   capacidade: number;
 
-  @Column({ default: 0 })
-  tempoOcupado: number; // tempo em minutos
-
-  @Column({ type: 'timestamp', nullable: true })
-  ocupadaDesde: Date;
+  // Comentei isso até o Reserva existir
+  // @OneToMany(() => Reserva, (reserva) => reserva.mesa)
+  // reservas: Reserva[];
 }
+

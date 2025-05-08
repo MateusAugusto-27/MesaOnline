@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { Mesa } from './entities/mesa.entity';
 import { MesaService } from './mesa.service';
 import { MesaController } from './mesa.controller';
-import { Mesa } from './entities/mesa.entity';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Mesa])],
@@ -10,3 +10,4 @@ import { Mesa } from './entities/mesa.entity';
   providers: [MesaService],
 })
 export class MesaModule {}
+
