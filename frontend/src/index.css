@@ -1,0 +1,100 @@
+/* Tailwind CSS Base */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Estilos Globais */
+html, body {
+  font-family: 'Open Sans', sans-serif;  /* Fonte personalizada */
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  height: 100%;
+}
+
+/* Estilo da raiz (para o layout do aplicativo) */
+#root {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f7fafc; /* Cor de fundo clara */
+}
+
+/* Adicionando um fundo verde claro para o fundo do App */
+.bg-greenFigma {
+  background-color: #3e8e41;  /* Cor verde personalizada */
+}
+
+/* Estilos personalizados */
+.bg-dark {
+  background-color: #333333;
+}
+
+.text-sm {
+  font-size: 0.875rem;  /* Tamanho de fonte pequeno */
+}
+
+.text-xs {
+  font-size: 0.75rem;   /* Tamanho de fonte extra pequeno */
+}
+
+.w-full {
+  width: 100%;
+}
+
+.mt-1 {
+  margin-top: 0.25rem;
+}
+
+.mt-4 {
+  margin-top: 1rem;
+}
+
+.mt-6 {
+  margin-top: 1.5rem;
+}
+
+.mb-4 {
+  margin-bottom: 1rem;
+}
+
+.p-2 {
+  padding: 0.5rem;
+}
+
+.p-6 {
+  padding: 1.5rem;
+}
+
+.rounded-lg {
+  border-radius: 0.5rem;
+}
+
+.shadow-lg {
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+}
+
+.text-4xl {
+  font-size: 2.25rem;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.underline {
+  text-decoration: underline;
+}
+
+.hover\:opacity-80:hover {
+  opacity: 0.8;
+}
+
+.overflow-hidden {
+  overflow: hidden;
+}
+
+.w-[380px] {
+  width: 380px;
+}

@@ -1,0 +1,11 @@
+/* src/styles/Home.css */
+.home-container {
+    padding: 24px;
+  }
+  
+  .table-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  

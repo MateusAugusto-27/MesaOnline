@@ -1,0 +1,24 @@
+/* src/components/TableCard.css */
+.table-card {
+    border: 2px solid #ccc;
+    border-radius: 12px;
+    padding: 16px;
+    margin: 10px;
+    width: 160px;
+    text-align: center;
+    font-family: sans-serif;
+    transition: all 0.3s ease;
+  }
+  
+  .table-card.livre {
+    background-color: #d4fcd4;
+  }
+  
+  .table-card.ocupada {
+    background-color: #f8c8c8;
+  }
+  
+  .table-card.reservada {
+    background-color: #fff0b3;
+  }
+  
