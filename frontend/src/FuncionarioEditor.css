@@ -1,0 +1,76 @@
+.editor-container {
+  background-color: #4b4f5a;
+  min-height: 100vh;
+  padding: 2rem;
+  color: white;
+  font-family: 'Segoe UI', sans-serif;
+  text-align: center;
+  position: relative;
+}
+
+h1 {
+  font-size: 40px;
+  margin-bottom: 30px;
+}
+
+.mesa-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 30px;
+  justify-items: center;
+}
+
+.mesa-card {
+  background-color: #2f2f2f;
+  padding: 20px;
+  border-radius: 15px;
+  width: 200px;
+  position: relative;
+}
+
+.mesa-img {
+  font-size: 40px;
+  margin-bottom: 10px;
+}
+
+.editar-btn {
+  background-color: black;
+  color: white;
+  padding: 10px 20px;
+  margin-top: 10px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.status-icon {
+  font-size: 24px;
+  margin-top: 10px;
+}
+
+.modificar-btn {
+  margin-top: 10px;
+  padding: 8px 12px;
+  background-color: #444;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.tempo {
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.sair-btn {
+  position: absolute;
+  top: 30px;
+  right: 40px;
+  background-color: black;
+  color: white;
+  padding: 10px 16px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+}

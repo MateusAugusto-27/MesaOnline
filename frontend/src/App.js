@@ -1,11 +1,18 @@
-import React from 'react';
-import Login from './Login'; // importa o componente Login
-import './Login.css'; // importa o estilo da tela de login
+import React, { useState } from 'react';
+import Login from './Login';
+import FuncionarioEditor from './FuncionarioEditor';
+import './App.css';
 
 function App() {
+  const [logadoComoFuncionario, setLogadoComoFuncionario] = useState(false);
+
   return (
     <div className="App">
-      <Login />
+      {logadoComoFuncionario ? (
+        <FuncionarioEditor />
+      ) : (
+        <Login onLoginSucesso={() => setLogadoComoFuncionario(true)} />
+      )}
     </div>
   );
 }
